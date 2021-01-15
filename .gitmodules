@@ -1,22 +1,24 @@
-[submodule "Lib/macro_pack"]
-	path = MyWarez/Resources/Plugins/MacroPack/macro_pack
-	url = https://github.com/CreatePhotonW/macro_pack
-	ignore = dirty
-[submodule "Lib/tonsil"]
-	path = MyWarez/Lib/tonsil
-	url = https://github.com/CreatePhotonW/tonsil
-	ignore = dirty
-[submodule "Lib/Covenant"]
+[submodule "MyWarez/Lib/Covenant"]
 	path = MyWarez/Lib/Covenant
 	url = https://github.com/CreatePhotonW/Covenant
 	ignore = dirty
-[submodule "Lib/donutCS"]
+[submodule "MyWarez/Lib/tonsil"]
+	path = MyWarez/Lib/tonsil
+	url = https://github.com/CreatePhotonW/tonsil
+	ignore = dirty
+[submodule "MyWarez/Resources/Plugins/Donut/donutCS"]
 	path = MyWarez/Resources/Plugins/Donut/donutCS
 	url = https://github.com/CreatePhotonW/donutCS
 	ignore = dirty
-[submodule "Lib/htmlmth"]
+[submodule "MyWarez/Resources/Plugins/Htmlmth/htmlmth"]
 	path = MyWarez/Resources/Plugins/Htmlmth/htmlmth
 	url = https://github.com/CreatePhotonW/htmlmth
-[submodule "Lib/PowerSploit"]
+	ignore = dirty
+[submodule "MyWarez/Resources/Plugins/MacroPack/macro_pack"]
+	path = MyWarez/Resources/Plugins/MacroPack/macro_pack
+	url = https://github.com/CreatePhotonW/macro_pack
+	ignore = dirty
+[submodule "MyWarez/Resources/Plugins/PowerSploit/PowerSploit"]
 	path = MyWarez/Resources/Plugins/PowerSploit/PowerSploit
 	url = https://github.com/PowerShellMafia/PowerSploit
+	ignore = dirty
