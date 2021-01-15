@@ -1,0 +1,126 @@
+; x86 64 bit shellcode
+; Walks the PEB & Export tables to get the address of MessageBox, RtlExitUserProcess (ExitProcess)
+; Possible variations:
+;	finding the address of an exported function given the base address of a dll:
+;		1. string compare
+;		2. ror13 hash compare (implemented)
+;		3. other hash compare
+;	Push strings onto the stack and POP off instead of using JMP-POP to get address of string data
+
+; References
+; 	https://docs.microsoft.com/en-us/windows/win32/debug/pe-format
+;	https://idafchev.github.io/exploit/2017/09/26/writing_windows_shellcode.html
+;	https://www.fireeye.com/blog/threat-research/2012/11/precalculated-string-hashes-reverse-engineering-shellcode.html
+;	https://www.tophertimzen.com/blog/windowsx64Shellcode/
+
+
+bits 64
+section .text
+global start
+
+start:
+;get dll base addresses
+	sub rsp, 28h                     ;reserve stack space for called functions
+	and rsp, 0fffffffffffffff0h      ;make sure stack 16-byte aligned   
+ 
+	mov r12, [gs:60h]                ;peb
+	mov r12, [r12 + 0x18]            ;Peb --> LDR
+	mov r12, [r12 + 0x20]            ;Peb.Ldr.InMemoryOrderModuleList
+	mov r12, [r12]                   ;2st entry
+	mov r15, [r12 + 0x20]            ;ntdll.dll base address!
+	mov r12, [r12]                   ;3nd entry
+	mov r12, [r12 + 0x20]            ;kernel32.dll base address!
+ 
+;find address of loadLibraryA from kernel32.dll which was found above. 
+	mov rdx, 0xec0e4e8e
+	mov rcx, r12
+	call GetProcessAddress         
+ 
+;import user32
+	jmp getUser32
+returnGetUser32:
+	pop rcx
+	call rax                        ;load user32.dll
+	
+;get messageBox address
+	mov rdx, 0xbc4da2a8
+	mov rcx, rax
+	call GetProcessAddress  
+	mov rbx, rax
+
+;messageBox
+	xor r9, r9                     ;uType
+	jmp getText
+returnGetText:
+	pop r8                         ;lpCaption
+	jmp getTitle
+returnGetTitle:
+	pop rdx                        ;lpTitle
+	xor rcx, rcx                   ;hWnd
+	call rbx                       ;display message box	
+	
+;ExitProcess
+	mov rdx, 0x2d3fcd70				
+	mov rcx, r15
+	call GetProcessAddress
+	xor  rcx, rcx                  ;uExitCode
+	call rax       
+
+;get strings	
+getUser32:
+	call returnGetUser32
+	db  'user32.dll'
+	db	0x00
+getTitle:
+	call returnGetTitle
+	db  'This is the title'
+	db	0x00
+getText:
+	call returnGetText
+	db  'This is the text'
+	db	0x00
+
+;Hashing section to resolve a function address	
+GetProcessAddress:		
+	mov r13, rcx                     ;r13 = absolute base address of image/dll loaded 
+	mov eax, [r13 + 0x3c]           ;eax = offset of the PE header (relative to the image base)
+	mov r14d, [r13 + rax + 0x88]    ;r14d = offset of the PE export table (relative to the image base)
+
+	add r14, r13                  ;r14 = absolute address of the export table
+	mov r10d, [r14 + 0x18]         ;r10d = export table->numberOfNames 
+	mov ebx, [r14 + 0x20]          ;ebx = offset of the export name pointer table (relative to the image base)
+	add rbx, r13                   ;rbx = absolute address of the export name pointer table
+	
+find_function_loop:	
+	jecxz find_function_finished   ;if ecx is zero, quit :( nothing found. 
+	dec r10d                       ;dec ECX by one for the loop until a match/none are found
+	mov esi, [rbx + r10 * 4]      ;get a name to play with from the export table. 
+	add rsi, r13                  ;rsi = absolute address of the current name to search on. 
+	
+find_hashes:
+	xor edi, edi
+	xor eax, eax
+	cld			
+	
+continue_hashing:	
+	lodsb                         ;get into al from esi
+	test al, al                   ;is the end of string reached?
+	jz compute_hash_finished
+	ror dword edi, 0xd            ;ROR13 for hash calculation
+	add edi, eax		
+	jmp continue_hashing
+	
+compute_hash_finished:
+	cmp edi, edx                  ;edx has the function hash
+	jnz find_function_loop        ;didn't match, keep trying!
+	mov ebx, [r14 + 0x24]        ;ebx = the ordinal table offset
+	add rbx, r13                 ;rbx = absolute address of ordinal table
+	xor ecx, ecx                  ;ensure ecx is 0'd. 
+	mov cx, [rbx + 2 * r10]      ;ordinal = 2 bytes. Get the current ordinal and put it in cx. ECX was our counter for which # we were in. 
+	mov ebx, [r14 + 0x1c]        ;ebx = the address table offset
+	add rbx, r13                 ;rbx = absolute address of address table
+	mov eax, [rbx + 4 * rcx]      ;eax = relative address of the target function
+	add rax, r13				 ;rax = absolute address of the target function
+	
+find_function_finished:
+	ret 

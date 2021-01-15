@@ -1,0 +1,31 @@
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- This simple inline task displays "Hello, world!" -->
+  <UsingTask
+    TaskName="HelloWorld"
+    TaskFactory="CodeTaskFactory"
+    AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll" >
+    <ParameterGroup />    
+    <Task>
+      <Code Type="Class" Language="cs">
+      <![CDATA[
+        using Microsoft.Build.Framework;
+        using Microsoft.Build.Utilities;
+
+//CODEHERE
+
+        public class HelloWorld : Task
+        {         
+          public override bool Execute()
+          {
+	      SomeNamespace.SomeClass.SomeMethod();
+              return true;
+          } 
+        }
+      ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+  <Target Name="Hello">
+    <HelloWorld />
+  </Target>
+</Project>

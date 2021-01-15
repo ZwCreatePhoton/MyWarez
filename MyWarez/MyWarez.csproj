@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Lib\**" />
+    <Compile Remove="Resources\**" />
+    <EmbeddedResource Remove="Lib\**" />
+    <EmbeddedResource Remove="Resources\**" />
+    <None Remove="Lib\**" />
+    <None Remove="Resources\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.7" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="3.1.7" />
+    <PackageReference Include="Microsoft.CodeAnalysis" Version="3.7.0" />
+    <PackageReference Include="YamlDotNet" Version="8.1.1" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="Lib\Covenant\Covenant\Covenant.csproj" />
+    <ProjectReference Include="Lib\tonsil\Tonsil\Tonsil.csproj" />
+    <ProjectReference Include="Resources\Plugins\Donut\donutCS\Donut.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Plugins\Gcc\" />
+  </ItemGroup>
+
+  <Target Name="SpicNSpan" AfterTargets="Clean">
+    <!-- common vars https://msdn.microsoft.com/en-us/library/c02as0cs.aspx?f=255&MSPPError=-2147217396 -->
+    <RemoveDir Directories="$(TargetDir)" />
+    <!-- bin -->
+    <RemoveDir Directories="$(ProjectDir)$(BaseIntermediateOutputPath)" />
+    <!-- obj -->
+  </Target>
+  
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="dotnet restore" />
+    <Exec Command="mkdir &quot;$(TargetDir)Data\Temp&quot; &gt; NUL&#xD;&#xA;mkdir &quot;$(TargetDir)Data\Output&quot; &gt; NUL&#xD;&#xA;mkdir &quot;$(TargetDir)Data\Output\Samples&quot; &gt; NUL&#xD;&#xA;mkdir &quot;$(TargetDir)Data\Output\Server &gt; NUL&#xD;&#xA;robocopy &quot;$(ProjectDir)Resources&quot; &quot;$(TargetDir)Data\Resources&quot; /s /e /MT:128&#xD;&#xA;robocopy &quot;$(ProjectDir)Lib\Covenant\Covenant\Data&quot; &quot;$(TargetDir)Data\Data&quot; /s /e /MT:128&#xD;&#xA;if %25errorlevel%25 leq 7 exit 0 else exit %25errorlevel%25&#xD;&#xA;" />
+  </Target>
+  
+</Project>

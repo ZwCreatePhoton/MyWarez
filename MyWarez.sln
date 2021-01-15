@@ -1,0 +1,78 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29326.143
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyWarez", "MyWarez\MyWarez.csproj", "{99211A85-316C-4D32-934E-3F39E6B121CD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D5865774-CD82-4CCE-A3F1-7F2C4639301B} = {D5865774-CD82-4CCE-A3F1-7F2C4639301B}
+		{ECB365F3-5681-41BB-A221-54F1D499464A} = {ECB365F3-5681-41BB-A221-54F1D499464A}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Covenant", "Covenant", "{63E79FAB-F660-4C4F-95D3-CDE6F0B278E5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Covenant", "MyWarez\Lib\Covenant\Covenant\Covenant.csproj", "{D5865774-CD82-4CCE-A3F1-7F2C4639301B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "donutCS", "donutCS", "{3465F2B9-F0D2-429B-BF43-25D24CE82271}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Donut", "MyWarez\Resources\Plugins\Donut\donutCS\Donut.csproj", "{CE6A5468-56A1-4BDC-8BA2-AA9B1A9ABABE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tonsil", "Tonsil", "{E88F2077-3DAB-43F9-9AFB-34C6904FE669}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tonsil", "MyWarez\Lib\tonsil\Tonsil\Tonsil.csproj", "{ECB365F3-5681-41BB-A221-54F1D499464A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TonsilTest", "MyWarez\Lib\tonsil\TonsilTest\TonsilTest.csproj", "{B8EA856B-2006-4926-BD70-CCE66BD4DCC9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{ECB365F3-5681-41BB-A221-54F1D499464A} = {ECB365F3-5681-41BB-A221-54F1D499464A}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TonsilConsole", "MyWarez\Lib\tonsil\TonsilConsole\TonsilConsole.csproj", "{70AE8367-A798-41F1-BE89-6020CEE93114}"
+	ProjectSection(ProjectDependencies) = postProject
+		{ECB365F3-5681-41BB-A221-54F1D499464A} = {ECB365F3-5681-41BB-A221-54F1D499464A}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{99211A85-316C-4D32-934E-3F39E6B121CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99211A85-316C-4D32-934E-3F39E6B121CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99211A85-316C-4D32-934E-3F39E6B121CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99211A85-316C-4D32-934E-3F39E6B121CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5865774-CD82-4CCE-A3F1-7F2C4639301B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5865774-CD82-4CCE-A3F1-7F2C4639301B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5865774-CD82-4CCE-A3F1-7F2C4639301B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5865774-CD82-4CCE-A3F1-7F2C4639301B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE6A5468-56A1-4BDC-8BA2-AA9B1A9ABABE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE6A5468-56A1-4BDC-8BA2-AA9B1A9ABABE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE6A5468-56A1-4BDC-8BA2-AA9B1A9ABABE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE6A5468-56A1-4BDC-8BA2-AA9B1A9ABABE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECB365F3-5681-41BB-A221-54F1D499464A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECB365F3-5681-41BB-A221-54F1D499464A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECB365F3-5681-41BB-A221-54F1D499464A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECB365F3-5681-41BB-A221-54F1D499464A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8EA856B-2006-4926-BD70-CCE66BD4DCC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8EA856B-2006-4926-BD70-CCE66BD4DCC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8EA856B-2006-4926-BD70-CCE66BD4DCC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8EA856B-2006-4926-BD70-CCE66BD4DCC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70AE8367-A798-41F1-BE89-6020CEE93114}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70AE8367-A798-41F1-BE89-6020CEE93114}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70AE8367-A798-41F1-BE89-6020CEE93114}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70AE8367-A798-41F1-BE89-6020CEE93114}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D5865774-CD82-4CCE-A3F1-7F2C4639301B} = {63E79FAB-F660-4C4F-95D3-CDE6F0B278E5}
+		{CE6A5468-56A1-4BDC-8BA2-AA9B1A9ABABE} = {3465F2B9-F0D2-429B-BF43-25D24CE82271}
+		{ECB365F3-5681-41BB-A221-54F1D499464A} = {E88F2077-3DAB-43F9-9AFB-34C6904FE669}
+		{B8EA856B-2006-4926-BD70-CCE66BD4DCC9} = {E88F2077-3DAB-43F9-9AFB-34C6904FE669}
+		{70AE8367-A798-41F1-BE89-6020CEE93114} = {E88F2077-3DAB-43F9-9AFB-34C6904FE669}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7EAD232F-403D-4CAB-87EB-A21CB9EDA6BC}
+	EndGlobalSection
+EndGlobal
