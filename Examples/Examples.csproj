@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Resources\**" />
+    <EmbeddedResource Remove="Resources\**" />
+    <None Remove="Resources\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MyWarez\MyWarez.csproj" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="robocopy &quot;$(ProjDir)..\MyWarez\bin\$(Configuration)\$(TargetFramework)\Data&quot; &quot;$(TargetDir)..\$(TargetFramework)&quot; /s /e /MT:128&#xD;&#xA;mkdir  &quot;$(ProjDir)Resources&quot;&#xD;&#xA;robocopy &quot;$(ProjDir)Resources&quot; &quot;$(TargetDir)..\$(TargetFramework)\Resources&quot; /s /e /MT:128&#xD;&#xA;if %25errorlevel%25 leq 7 exit 0 else exit %25errorlevel%25&#xD;&#xA;" />
+  </Target>
+
+</Project>

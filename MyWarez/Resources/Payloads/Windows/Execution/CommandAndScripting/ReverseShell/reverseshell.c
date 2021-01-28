@@ -1,6 +1,5 @@
-#define WIN32_LEAN_AND_MEAN
 //HEADERS
-
+#define WIN32_LEAN_AND_MEAN
 #include <process.h>
 #include <ws2tcpip.h>
 #include <Windows.h>

@@ -1,5 +1,5 @@
-#define WIN32_LEAN_AND_MEAN
 //HEADERS
+#define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
 
 void ExecutePayload(void);

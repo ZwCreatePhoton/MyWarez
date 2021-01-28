@@ -24,8 +24,27 @@ namespace MyWarez.Plugins.GoBuild
                 Environment.SetEnvironmentVariable("GOARCH", targetArch);
                 var scriptText = script + "\r\n//" + Utils.RandomString(10); // non-functional change that will result in the compiled exe having a varying hash
                 File.WriteAllText("input.go", scriptText);
-                Process.Start("go", "build -o output " + additionalArgs + " input.go").WaitForExit();
-                return File.ReadAllBytes("output");
+                try
+                {
+                    StringBuilder outputStringBuilder = new StringBuilder();
+                    var process = Process.Start("go", "build -o output " + additionalArgs + " input.go");
+                    process.StartInfo.RedirectStandardOutput = true;
+                    process.StartInfo.RedirectStandardError = true;
+                    process.OutputDataReceived += (sender, eventArgs) => outputStringBuilder.AppendLine(eventArgs.Data);
+                    process.ErrorDataReceived += (sender, eventArgs) => outputStringBuilder.AppendLine(eventArgs.Data);
+                    process.Start();
+                    process.WaitForExit();
+                    var output = outputStringBuilder.ToString();
+                    if (output.Contains("missing-cc"))
+                    {
+                        throw new MissingDependencyException("TDM-GCC");
+                    }
+                }
+                catch (System.ComponentModel.Win32Exception e)
+                {
+                    throw new MissingDependencyException("GO");
+                }
+            return File.ReadAllBytes("output");
             }
         }
 

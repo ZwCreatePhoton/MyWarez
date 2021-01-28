@@ -29,7 +29,14 @@ namespace MyWarez.Plugins.PyInstaller
                 var scriptText = script.Text;
                 scriptText += "\r\n#" + Utils.RandomString(10); // non-functional change that will result in the compiled exe having a varying hash
                 File.WriteAllText("input.py", scriptText);
-                Process.Start("pyinstaller", "--onefile " + (windowed ? " --windowed " : "") + additionalPyInstallerArguments + " input.py").WaitForExit();
+                try
+                {
+                    Process.Start("pyinstaller", "--onefile " + (windowed ? " --windowed " : "") + additionalPyInstallerArguments + " input.py").WaitForExit();
+                }
+                catch (System.ComponentModel.Win32Exception e)
+                {
+                    throw new MissingDependencyException("PyInstaller");
+                }
                 var exeBytes = File.ReadAllBytes(Path.Join("dist", "input.exe"));
                 return new Executable(exeBytes);
             }
