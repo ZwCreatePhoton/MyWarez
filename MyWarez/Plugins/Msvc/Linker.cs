@@ -45,8 +45,8 @@ namespace MyWarez.Plugins.Msvc
             public Machine? MACHINE;
             public bool? SAFESEH;
             public bool debug;
-            public List<string> ExportedFunctions;
-            public List<string> AdditionalDependencies;
+            public IEnumerable<string> ExportedFunctions;
+            public IEnumerable<string> AdditionalDependencies;
             public int? StackSize;
             public int? StackCommitSize;
             public bool MAP;
@@ -116,8 +116,8 @@ namespace MyWarez.Plugins.Msvc
                 bool MAP = false,
                 int? stackSize = null,
                 int? stackCommitSize = null,
-                List<string> additionalDependencies = null,
-                List<string> exportedFunctions = null,
+                IEnumerable<string> additionalDependencies = null, // libraries to import (advapi32.lib, ws2_32.lib, etc)
+                IEnumerable<string> exportedFunctions = null, // functions to export
                 bool debug = false,
                 OutputType outputType = OutputType.EXE,
                 Manifest MANIFEST = Manifest.YES, // Creates a side-by-side manifest file and optionally embeds it in the binary.
@@ -257,22 +257,10 @@ namespace MyWarez.Plugins.Msvc
 
         public Linker(
             Config config = null,
-            Version version = Version.v14_16, // MSVC++ buildtools version. The target host must include at least this version.
-            IEnumerable<string> exportedFunctions = null // functions to export
+            Version version = Version.v14_16 // MSVC++ buildtools version. The target host must include at least this version.
             )
         {
             CConfig = config ?? new Config();
-            CConfig.ExportedFunctions = (exportedFunctions ?? Enumerable.Empty<string>()).ToList();
-            // why did i add this?
-            /*
-            if (CConfig.DefaultLibraries.Count() == 0)
-            {
-                // TODO: Automatically add library references 
-                // OR Add all references now ?
-                CConfig.DefaultLibraries.Add("advapi32.lib");
-                CConfig.DefaultLibraries.Add("ws2_32.lib");
-            }
-            */
             this.version = version;
         }
 

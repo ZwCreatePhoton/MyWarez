@@ -43,7 +43,8 @@ namespace Examples
             var createProcessDllStaticLibrary = ((ICCxxCompiler<Win64ObjectFile>)new MyWarez.Plugins.Msvc.Compiler()).Compile(createProcessDllSource);
             // Msvc.Linker must be explictly told what function(s) to export
             // (ILinker<Win64ObjectFile, Executable>) means that this is a Linker that access object files of type Win64ObjectFile and produces executables of type DynamicLinkLibrary (.dll)
-            var createProcessDll = ((ILinker<Win64ObjectFile, DynamicLinkLibrary>)new MyWarez.Plugins.Msvc.Linker(exportedFunctions: createProcessDllSource.ExportedFunctions)).Link(createProcessDllStaticLibrary);
+            var createProcessLinkerConfig = new MyWarez.Plugins.Msvc.Linker.Config(exportedFunctions: createProcessDllSource.ExportedFunctions);
+            var createProcessDll = ((ILinker<Win64ObjectFile, DynamicLinkLibrary>)new MyWarez.Plugins.Msvc.Linker(createProcessLinkerConfig)).Link(createProcessDllStaticLibrary);
 
             samplesOutput.Add("CCxxMsvcNotepad.exe", createProcessExe); // Double click to confirm that notepad spawns
             samplesOutput.Add("CCxxMsvcNotepad.dll", createProcessDll); // run: "rundll32 Sample8Notepad.dll,CreateProcessFunction" to confirm that notepad spawns

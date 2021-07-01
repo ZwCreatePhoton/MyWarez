@@ -115,10 +115,12 @@ namespace Examples
             var createProcessDllSource = new SkeletonDllMainCCxxSource(createProcessSource, exportedFunctions: new[] { exportedFunctionName });
             // 64bit
             var createProcessDllStaticLibrary64 = ((ICCxxCompiler<Win64ObjectFile>)new MyWarez.Plugins.Msvc.Compiler()).Compile(createProcessDllSource);
-            var dynamicLinkLibrary64 = ((ILinker<Win64ObjectFile, DynamicLinkLibrary>)new MyWarez.Plugins.Msvc.Linker(exportedFunctions: createProcessDllSource.ExportedFunctions)).Link(createProcessDllStaticLibrary64);
+            var linkerConfig64 = new MyWarez.Plugins.Msvc.Linker.Config(exportedFunctions: createProcessDllSource.ExportedFunctions);
+            var dynamicLinkLibrary64 = ((ILinker<Win64ObjectFile, DynamicLinkLibrary>)new MyWarez.Plugins.Msvc.Linker(linkerConfig64)).Link(createProcessDllStaticLibrary64);
             // 32bit
+            var linkerConfig32 = new MyWarez.Plugins.Msvc.Linker.Config(exportedFunctions: createProcessDllSource.ExportedFunctions);
             var createProcessDllStaticLibrary32 = ((ICCxxCompiler<Win32ObjectFile>)new MyWarez.Plugins.Msvc.Compiler()).Compile(createProcessDllSource);
-            var dynamicLinkLibrary32 = ((ILinker<Win32ObjectFile, DynamicLinkLibrary>)new MyWarez.Plugins.Msvc.Linker(exportedFunctions: createProcessDllSource.ExportedFunctions)).Link(createProcessDllStaticLibrary32);
+            var dynamicLinkLibrary32 = ((ILinker<Win32ObjectFile, DynamicLinkLibrary>)new MyWarez.Plugins.Msvc.Linker(linkerConfig32)).Link(createProcessDllStaticLibrary32);
 
             // Generate Shellcodes
             var executable64Shellcode = new ExecutableDonutShellcode(executable64);
