@@ -18,10 +18,10 @@ namespace MyWarez.Core
     public abstract class FileOutput : Output
     {
         public FileOutput(
-            string rootDirectory // The path on the local filesystem where the files will be stored
+            string relativeDirectory // The path on the local filesystem where the files will be stored relative to the output directory
             )
         {
-            RootDirectory = rootDirectory;
+            RootDirectory = Path.Join(Core.Constants.OutputDirectory, relativeDirectory);
         }
 
         public string RootDirectory { get; }

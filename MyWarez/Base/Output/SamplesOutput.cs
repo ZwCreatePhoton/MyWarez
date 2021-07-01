@@ -12,8 +12,10 @@ namespace MyWarez.Base
 {
     public class SamplesOutput : FileOutput
     {
-        public SamplesOutput()
-            : base(Path.Join(Core.Constants.OutputDirectory, "Samples"))
+        public static string ServerOutputDirectoryName = "Samples";
+
+        public SamplesOutput(string baseDirectory="")
+            : base(Path.Join(baseDirectory, ServerOutputDirectoryName))
         { }
     }
 }

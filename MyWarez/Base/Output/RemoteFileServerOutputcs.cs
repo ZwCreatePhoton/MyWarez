@@ -17,8 +17,8 @@ namespace MyWarez.Base
 
     public class RemoteFileServerOutput : FileOutput, IServerOutput
     {
-        public RemoteFileServerOutput(Host host, int port, string name, string relativeDirectory="")
-            : base(Path.Join(Path.Join(Core.Constants.OutputDirectory, IServerOutput.ServerOutputDirectoryName), host.HostId, port.ToString() + "_" + name, relativeDirectory))
+        public RemoteFileServerOutput(Host host, int port, string name, string relativeDirectory="", string baseDirectory="")
+            : base(Path.Join(Path.Join(baseDirectory, IServerOutput.ServerOutputDirectoryName), host.HostId, port.ToString() + "_" + name, relativeDirectory))
         {
             Host = host;
             Port = port;
