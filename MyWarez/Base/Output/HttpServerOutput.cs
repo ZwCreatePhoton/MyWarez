@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MyWarez.Base
 {
-    // TODO: Mechanism to upload files to server and start HTTP service
+    // Generic HTTP Server
     public class HttpServerOutput : RemoteFileServerOutput
     {
         public HttpServerOutput(Host host, int port=80, string name="HTTP_Server", string baseDirectory = "")
