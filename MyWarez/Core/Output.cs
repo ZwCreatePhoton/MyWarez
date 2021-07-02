@@ -28,6 +28,8 @@ namespace MyWarez.Core
 
         public override void Generate()
         {
+            FileInfo rootDirectoryFileInfo = new FileInfo(RootDirectory);
+            Directory.CreateDirectory(rootDirectoryFileInfo.FullName);
             foreach (var file in Files)
             {
                 var filepath = Path.Join(RootDirectory, file.Item1);
