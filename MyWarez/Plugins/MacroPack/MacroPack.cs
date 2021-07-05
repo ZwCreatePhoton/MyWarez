@@ -30,6 +30,8 @@ namespace MyWarez.Plugins.MacroPack
             XLSB,
             DOC,
             DOCM,
+            DOT,
+            DOTM,
             ACCDB,
             PPT,
             PPTM

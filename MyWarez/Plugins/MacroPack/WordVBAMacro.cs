@@ -12,6 +12,8 @@ namespace MyWarez.Plugins.MacroPack
         {
             DOC,
             DOCM,
+            DOT,
+            DOTM,
         }
 
         public WordVBAMacro(IVbaMacro vbaMacro, OutputExtension extension = OutputExtension.DOCM)
