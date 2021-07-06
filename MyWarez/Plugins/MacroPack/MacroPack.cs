@@ -18,8 +18,10 @@ namespace MyWarez.Plugins.MacroPack
             VBA
         }
 
-        public enum OutputExtension
+        public enum Extension
         {
+            NONE,
+
             // DDE
             DOCX,
             XLSX,
@@ -37,24 +39,24 @@ namespace MyWarez.Plugins.MacroPack
             PPTM
         }
 
-        protected static byte[] Generate(OutputType outputType, string inputFileContent, OutputExtension outputExtension)
+        protected static byte[] Generate(OutputType outputType, string inputFileContent, Extension outputExtension, byte[] templateBytes, Extension templateExtension)
         {
             // Kill running processes
             string processName = "";
             switch (outputExtension)
             {
-                case OutputExtension.DOCX:
-                case OutputExtension.DOCM:
+                case Extension.DOCX:
+                case Extension.DOCM:
                     processName = "winword.exe";
                     break;
-                case OutputExtension.XLSX:
-                case OutputExtension.XLSM:
+                case Extension.XLSX:
+                case Extension.XLSM:
                     processName = "excel.exe";
                     break;
-                case OutputExtension.ACCDB:
+                case Extension.ACCDB:
                     processName = "msaccess.exe";
                     break;
-                case OutputExtension.PPTM:
+                case Extension.PPTM:
                     processName = "powerpnt.exe";
                     break;
             }
@@ -69,9 +71,14 @@ namespace MyWarez.Plugins.MacroPack
                 string inputFileName = Utils.RandomString(5) + ".vba";
                 File.WriteAllText(inputFileName, inputContent);
                 string outputFileName = Utils.RandomString(5) + "." + outputExtension.ToString().ToLower();
+                string templateFileName = Utils.RandomString(5) + "." + templateExtension.ToString().ToLower();
+                if (!(templateBytes is null))
+                {
+                    File.WriteAllBytes(templateFileName, templateBytes);
+                }
                 var process = new Process();
                 process.StartInfo.FileName = "python";
-                process.StartInfo.Arguments = $"macro_pack.py {(outputType == OutputType.DDE ? "--dde" : "")} -f {inputFileName} -G {outputFileName}";
+                process.StartInfo.Arguments = $"macro_pack.py {(outputType == OutputType.DDE ? "--dde" : "")} -f {inputFileName} {(templateBytes is null ? "" : $"-T {templateFileName}")} -G {outputFileName}";
                 process.StartInfo.UseShellExecute = false;
                 process.Start();
                 process.WaitForExit();

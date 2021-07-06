@@ -10,17 +10,33 @@
 
     public class PowerPointDocument : IPowerPointDocument
     {
-        public PowerPointDocument() { }
+        public PowerPointDocument()
+        {
+
+        }
         public PowerPointDocument(byte[] bytes)
+            : this(bytes, "pptx")
+        { }
+        public PowerPointDocument(byte[] bytes, string type)
         {
             Bytes = bytes;
+            Type = type;
         }
+
         public byte[] Bytes { get; }
+        public string Type { get; }
     }
+
     public class MacroPowerPointDocument : PowerPointDocument, IMacroPowerPointDocument
     {
-        public MacroPowerPointDocument() { }
-        public MacroPowerPointDocument(byte[] bytes) : base(bytes)
+        public MacroPowerPointDocument()
+            : base()
+        { }
+        public MacroPowerPointDocument(byte[] bytes)
+            : this(bytes, "pptm")
+        { }
+        public MacroPowerPointDocument(byte[] bytes, string type)
+            : base(bytes, type)
         { }
     }
 }

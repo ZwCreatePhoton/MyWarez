@@ -8,20 +8,20 @@ namespace MyWarez.Plugins.MacroPack
 {
     public abstract class MacroPackDDE : MacroPack
     {
-        public MacroPackDDE(ProcessList processList, OutputExtension outputExtension)
+        public MacroPackDDE(ProcessList processList, Extension outputExtension)
         {
             ProcessList = processList;
             OutputExtensionValue = outputExtension;
         }
 
         private ProcessList ProcessList { get; }
-        private OutputExtension OutputExtensionValue { get; }
+        private Extension OutputExtensionValue { get; }
 
         private byte[] Generate()
         {
             var cmdlines = ((ProcessList)ProcessList).Processes.Select(p => p.CmdLine.ToString());
             string inputContent = string.Join("\n", cmdlines);
-            return MacroPack.Generate(OutputType.DDE, inputContent, OutputExtensionValue);
+            return MacroPack.Generate(OutputType.DDE, inputContent, OutputExtensionValue, null, Extension.NONE);
         }
         public byte[] Bytes
         {

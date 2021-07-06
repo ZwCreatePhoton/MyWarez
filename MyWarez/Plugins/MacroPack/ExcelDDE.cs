@@ -8,9 +8,9 @@ namespace MyWarez.Plugins.MacroPack
 {
     public sealed class ExcelDDE : MacroPackDDE, IExcelDocument
     {
-        public ExcelDDE(ProcessList processList) : base(processList, OutputExtension.XLSX)
+        public ExcelDDE(ProcessList processList) : base(processList, MacroPack.Extension.XLSX)
         { }
 
-        public string Extension => OutputExtension.XLSX.ToString().ToLower();
+        public string Extension => MacroPack.Extension.XLSX.ToString().ToLower();
     }
 }

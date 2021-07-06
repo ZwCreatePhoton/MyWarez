@@ -8,20 +8,24 @@ namespace MyWarez.Plugins.MacroPack
 {
     public abstract class MacroPackVBAMacro : MacroPack, IMacroDocument
     {
-        public MacroPackVBAMacro(IVbaMacro vbaMacro, OutputExtension outputExtension)
+        public MacroPackVBAMacro(IVbaMacro vbaMacro, Extension outputExtension, byte[] templateBytes = null, Extension templateExtension = MacroPack.Extension.NONE)
         {
             VbaMacro = vbaMacro;
             OutputExtensionValue = outputExtension;
+            TemplateBytes = templateBytes;
+            TemplateExtensionValue = templateExtension;
         }
         private IVbaMacro VbaMacro { get; }
-        private OutputExtension OutputExtensionValue { get; }
+        private Extension OutputExtensionValue { get; }
+        private Extension TemplateExtensionValue { get; }
+        private byte[] TemplateBytes { get; }
 
         public string Extension => OutputExtensionValue.ToString().ToLower();
 
         private byte[] Generate()
         {
             string inputContent = VbaMacro.Text;
-            return MacroPack.Generate(OutputType.VBA, inputContent, OutputExtensionValue);
+            return MacroPack.Generate(OutputType.VBA, inputContent, OutputExtensionValue, TemplateBytes, TemplateExtensionValue);
         }
         public byte[] Bytes
         {
