@@ -8,7 +8,11 @@ namespace MyWarez.Plugins.MacroPack
 {
     public sealed class WordDDE : MacroPackDDE, IWordDocument
     {
-        public WordDDE(ProcessList processList) : base(processList, MacroPack.Extension.DOCX)
+        public WordDDE(ProcessList processList, string password = null)
+            : base(processList,
+                  MacroPack.Extension.DOCX,
+                  password
+                  )
         { }
 
         public string Extension => MacroPack.Extension.DOCX.ToString().ToLower();

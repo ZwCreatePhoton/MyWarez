@@ -39,7 +39,7 @@ namespace MyWarez.Plugins.MacroPack
             PPTM
         }
 
-        protected static byte[] Generate(OutputType outputType, string inputFileContent, Extension outputExtension, byte[] templateBytes, Extension templateExtension)
+        protected static byte[] Generate(OutputType outputType, string inputFileContent, Extension outputExtension, byte[] templateBytes, Extension templateExtension, string password)
         {
             // Kill running processes
             string processName = "";
@@ -78,7 +78,7 @@ namespace MyWarez.Plugins.MacroPack
                 }
                 var process = new Process();
                 process.StartInfo.FileName = "python";
-                process.StartInfo.Arguments = $"macro_pack.py {(outputType == OutputType.DDE ? "--dde" : "")} -f {inputFileName} {(templateBytes is null ? "" : $"-T {templateFileName}")} -G {outputFileName}";
+                process.StartInfo.Arguments = $"macro_pack.py {(outputType == OutputType.DDE ? "--dde" : "")} {(password is null ? "" : $"--password {password}")} -f {inputFileName} {(templateBytes is null ? "" : $"-T {templateFileName}")} -G {outputFileName}";
                 process.StartInfo.UseShellExecute = false;
                 process.Start();
                 process.WaitForExit();
