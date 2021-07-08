@@ -34,7 +34,7 @@ namespace MyWarez.Plugins.Covenant
     }
 }
 
-namespace MyWarez.Base
+namespace MyWarez.Plugins.Covenant
 {
     public class CovenantInstallerDotNetAssembly : CovenantDotNetAssembly
     {
