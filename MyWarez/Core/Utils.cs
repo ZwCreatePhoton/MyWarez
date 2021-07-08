@@ -161,7 +161,7 @@ namespace MyWarez.Core
             var cwd = Directory.GetCurrentDirectory();
             Directory.SetCurrentDirectory(Constants.TempDirectory);
             File.WriteAllBytes(inputFilename, shellcode);
-            var proc = Process.Start("bash", string.Format(@"-c ""{0}""", encodeCommand));
+            var proc = Process.Start("powershell", string.Format(@"-c ""{0}""", encodeCommand));
             proc.WaitForExit();
             var outputBytes = File.ReadAllBytes(outputFilename);
             Directory.SetCurrentDirectory(cwd);
