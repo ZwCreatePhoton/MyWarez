@@ -24,7 +24,7 @@ namespace MyWarez.Base
         {
             get => @$"
 SCRIPT_DIR=""$(cd ""$( dirname ""${{BASH_SOURCE[0]}}"" )"" &> /dev/null && pwd )""
-(cd ""$SCRIPT_DIR""; exec impacket-smbserver -smb2support  -port {Port} -username '{Username}' -password '{Password}' {Sharename} {Sharename})
+(cd ""$SCRIPT_DIR""; exec impacket-smbserver -smb2support -port {Port}{((Username is null) || (Password is null) ? "" : $" -username '{Username}' -password '{Password}'")} {Sharename} {Sharename})
 ".Replace("\r\n", "\n");
         }
     }
