@@ -91,6 +91,6 @@ $PEBytes = [System.Convert]::FromBase64String($InputString)
 ";
 
         private static string VoidFuncDefaultName = "VoidFunc";
-        private static string PowerSploitScriptFilePath = Constants.PowerSploitDirectory + "CodeExecution" + Path.DirectorySeparatorChar + "Invoke-ReflectivePEInjection.ps1";
+        private static string PowerSploitScriptFilePath = Path.Join(Constants.PowerSploitDirectory, "CodeExecution", "Invoke-ReflectivePEInjection.ps1");
     }
 }
