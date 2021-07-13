@@ -5,13 +5,13 @@ using System.Reflection;
 using MyWarez.Base;
 using MyWarez.Core;
 
-namespace Examples
+namespace NativeCode
 {
-    public static partial class AttackExamples
+    public static partial class Attacks
     {
         public static void GenerateAll()
         {
-            MethodInfo[] methodInfos = typeof(AttackExamples).GetMethods(BindingFlags.NonPublic | BindingFlags.Static);
+            MethodInfo[] methodInfos = typeof(Attacks).GetMethods(BindingFlags.NonPublic | BindingFlags.Static);
             foreach (var methodInfo in methodInfos)
             {
                 if (methodInfo.ReturnType == typeof(IAttack))

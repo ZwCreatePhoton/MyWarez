@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using MyWarez.Core;
 
-namespace Examples
+namespace Output
 {
     class Program
     {
@@ -12,8 +12,7 @@ namespace Examples
             // The mapping is used to output all the server dependencies for a virtual host in one folder
             Utils.InitHosts(File.ReadAllText(Path.Join(MyWarez.Core.Constants.ResourceDirectory, "hosts.yaml")));
 
-            // Generate all example attacks
-            AttackExamples.GenerateAll();
+            Attacks.GenerateAll();
         }
     }
 }
