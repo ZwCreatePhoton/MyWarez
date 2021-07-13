@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using MyWarez.Core;
 
-namespace Office
+namespace Examples
 {
     class Program
     {

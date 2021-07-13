@@ -9,7 +9,7 @@ namespace Examples
         {
             // This function needs to be run at the start.
             // This reads in a mapping of (dns/host names <-> Ip addresses <-> virtual host identifiers)
-            // The mapping is used to output all the server dependencies for a virtual host in one folder
+            // The mapping is used to htmlmth all the server dependencies for a virtual host in one folder
             Utils.InitHosts(File.ReadAllText(Path.Join(MyWarez.Core.Constants.ResourceDirectory, "hosts.yaml")));
 
             Attacks.GenerateAll();

@@ -5,7 +5,7 @@ using System.Reflection;
 using MyWarez.Base;
 using MyWarez.Core;
 
-namespace Office
+namespace Examples
 {
     public static partial class Attacks
     {

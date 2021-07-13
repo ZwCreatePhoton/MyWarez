@@ -41,6 +41,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Misc", "Examples\Misc\Misc.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{7908E65E-DACC-4337-B488-3B9E72F9BF79}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Htmlmth", "Examples\Htmlmth\Htmlmth.csproj", "{6AA977BB-64D2-4199-8017-3AC6BF4E2D04}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{DE513AF8-3EFC-4686-BD87-DDD6163EE72F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE513AF8-3EFC-4686-BD87-DDD6163EE72F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE513AF8-3EFC-4686-BD87-DDD6163EE72F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AA977BB-64D2-4199-8017-3AC6BF4E2D04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AA977BB-64D2-4199-8017-3AC6BF4E2D04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AA977BB-64D2-4199-8017-3AC6BF4E2D04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AA977BB-64D2-4199-8017-3AC6BF4E2D04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -101,6 +107,7 @@ Global
 		{1E3E62A6-86D9-42FA-AA0D-A7A3620B4FA9} = {7908E65E-DACC-4337-B488-3B9E72F9BF79}
 		{093C4458-AE3A-4ACC-9F3B-5854D31D14C2} = {7908E65E-DACC-4337-B488-3B9E72F9BF79}
 		{DE513AF8-3EFC-4686-BD87-DDD6163EE72F} = {7908E65E-DACC-4337-B488-3B9E72F9BF79}
+		{6AA977BB-64D2-4199-8017-3AC6BF4E2D04} = {7908E65E-DACC-4337-B488-3B9E72F9BF79}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7EAD232F-403D-4CAB-87EB-A21CB9EDA6BC}

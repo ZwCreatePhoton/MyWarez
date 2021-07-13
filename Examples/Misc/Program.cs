@@ -1,13 +1,13 @@
 ﻿using System.IO;
 using MyWarez.Core;
 
-namespace Misc
+namespace Examples
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Attack.GenerateAll();
+            Attacks.GenerateAll();
         }
     }
 }

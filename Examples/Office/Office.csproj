@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="robocopy &quot;$(ProjDir)..\MyWarez\bin\$(Configuration)\$(TargetFramework)\Data&quot; &quot;$(TargetDir)..\$(TargetFramework)&quot; /s /e /MT:128&#xD;&#xA;mkdir  &quot;$(ProjDir)Resources&quot;&#xD;&#xA;robocopy &quot;$(ProjDir)Resources&quot; &quot;$(TargetDir)..\$(TargetFramework)\Resources&quot; /s /e /MT:128&#xD;&#xA;if %25errorlevel%25 leq 7 exit 0 else exit %25errorlevel%25&#xD;&#xA;" />
+    <Exec Command="robocopy &quot;$(ProjDir)..\..\MyWarez\bin\$(Configuration)\$(TargetFramework)\Data&quot; &quot;$(TargetDir)..\$(TargetFramework)&quot; /s /e /MT:128&#xD;&#xA;mkdir  &quot;$(ProjDir)Resources&quot;&#xD;&#xA;robocopy &quot;$(ProjDir)Resources&quot; &quot;$(TargetDir)..\$(TargetFramework)\Resources&quot; /s /e /MT:128&#xD;&#xA;if %25errorlevel%25 leq 7 exit 0 else exit %25errorlevel%25&#xD;&#xA;" />
   </Target>
 
 </Project>

@@ -20,7 +20,7 @@ using MyWarez.Plugins.Donut;
 
 namespace Examples
 {
-    public static partial class AttackExamples
+    public static partial class Attacks
     {
         // Office DDE Example
         private static IAttack OfficeDdeExample()

@@ -11,7 +11,10 @@ namespace Examples
     {
         public static void GenerateAll()
         {
-            MethodInfo[] methodInfos = typeof(Attack).GetMethods(BindingFlags.NonPublic | BindingFlags.Static);
+            List<MethodInfo> methodInfos = new List<MethodInfo>();
+            methodInfos.AddRange(typeof(Http).GetMethods(BindingFlags.NonPublic | BindingFlags.Static));
+            methodInfos.AddRange(typeof(Html).GetMethods(BindingFlags.NonPublic | BindingFlags.Static));
+            methodInfos.AddRange(typeof(Combo).GetMethods(BindingFlags.NonPublic | BindingFlags.Static));
             foreach (var methodInfo in methodInfos)
             {
                 if (methodInfo.ReturnType == typeof(IAttack))
