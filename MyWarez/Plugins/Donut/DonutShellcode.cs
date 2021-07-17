@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
 
-using Donut;
-using Donut.Structs;
+using DonutCS;
+using DonutCS.Structs;
 
 using MyWarez.Core;
 

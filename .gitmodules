@@ -1,7 +1,3 @@
-[submodule "MyWarez/Lib/Covenant"]
-	path = MyWarez/Lib/Covenant
-	url = https://github.com/CreatePhotonW/Covenant
-	ignore = dirty
 [submodule "MyWarez/Lib/tonsil"]
 	path = MyWarez/Lib/tonsil
 	url = https://github.com/CreatePhotonW/tonsil

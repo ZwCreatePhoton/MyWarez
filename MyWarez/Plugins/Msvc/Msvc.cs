@@ -6,7 +6,6 @@ using System.Linq;
 
 using MyWarez.Core;
 using MyWarez.Base;
-using Microsoft.OpenApi.Any;
 
 namespace MyWarez.Plugins.Msvc
 {

@@ -24,7 +24,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="Lib\Covenant\Covenant\Covenant.csproj" />
     <ProjectReference Include="Lib\tonsil\Tonsil\Tonsil.csproj" />
     <ProjectReference Include="Resources\Plugins\Donut\donutCS\Donut.csproj" />
   </ItemGroup>
@@ -43,7 +42,7 @@
   
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Exec Command="dotnet restore" />
-    <Exec Command="mkdir &quot;$(TargetDir)Data\Temp&quot; &gt; NUL&#xD;&#xA;mkdir &quot;$(TargetDir)Data\Output&quot; &gt; NUL&#xD;&#xA;mkdir &quot;$(TargetDir)Data\Output\Samples&quot; &gt; NUL&#xD;&#xA;mkdir &quot;$(TargetDir)Data\Output\Server &gt; NUL&#xD;&#xA;robocopy &quot;$(ProjectDir)Resources&quot; &quot;$(TargetDir)Data\Resources&quot; /s /e /MT:128&#xD;&#xA;robocopy &quot;$(ProjectDir)Lib\Covenant\Covenant\Data&quot; &quot;$(TargetDir)Data\Data&quot; /s /e /MT:128&#xD;&#xA;if %25errorlevel%25 leq 7 exit 0 else exit %25errorlevel%25&#xD;&#xA;" />
+    <Exec Command="mkdir &quot;$(TargetDir)Data\Temp&quot; &gt; NUL&#xD;&#xA;mkdir &quot;$(TargetDir)Data\Output&quot; &gt; NUL&#xD;&#xA;mkdir &quot;$(TargetDir)Data\Output\Samples&quot; &gt; NUL&#xD;&#xA;mkdir &quot;$(TargetDir)Data\Output\Server &gt; NUL&#xD;&#xA;robocopy &quot;$(ProjectDir)Resources&quot; &quot;$(TargetDir)Data\Resources&quot; /s /e /MT:128&#xD;&#xA;if %25errorlevel%25 leq 7 exit 0 else exit %25errorlevel%25&#xD;&#xA;" />
   </Target>
   
 </Project>

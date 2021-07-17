@@ -7,7 +7,6 @@ using MyWarez.Core;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using Microsoft.AspNetCore.Mvc;
 
 namespace MyWarez.Plugins.Msvc
 {
