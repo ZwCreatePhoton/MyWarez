@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 
 namespace MyWarez.Core
 {
@@ -13,6 +14,17 @@ namespace MyWarez.Core
 
         public string Data { get; }
         public string Path { get; }
+
+        public static IEnumerable<WebsiteResource> SourceDirectoryToWebsiteResources(string sourceDirectory, IEnumerable<string> excludeFiles = null, IEnumerable<WebsiteResource> additionalResources = null)
+        {
+            excludeFiles ??= new List<string>();
+            additionalResources ??= new List<WebsiteResource>();
+            List<WebsiteResource> files = new List<WebsiteResource>();
+            files.AddRange(Directory.GetFiles(sourceDirectory, "*", SearchOption.AllDirectories).ToList().Where(file => !excludeFiles.Contains(System.IO.Path.GetRelativePath(sourceDirectory, file))).Select((file) => new WebsiteResource(File.ReadAllText(file), System.IO.Path.GetRelativePath(sourceDirectory, file))));
+            foreach (var source in additionalResources)
+                files.Add(source);
+            return files;
+        }
     }
 
     public class Website : IPayload
