@@ -14,7 +14,8 @@ namespace MyWarez.Plugins.Htmlmth
     {
         private static readonly string HtmlmthLibDirectory = Path.Join(Core.Constants.PluginsResourceDirectory, "Htmlmth", "htmlmth");
 
-        public HtmlmthServerOutput(Host host, int port=80, string name="HTMLMTH_Server",
+        public HtmlmthServerOutput(Host host, int port=80, string name="HTMLMTH",
+            string baseDirectory = "",
             string scriptEncodingServerHost = null, // Needed for evasions.html.encoded_script
             int? scriptEncodingServerPort = null // Needed for evasions.html.encoded_script
             )
@@ -22,6 +23,8 @@ namespace MyWarez.Plugins.Htmlmth
             Host = host;
             Port = port;
             Name = name;
+            BaseDirectory = baseDirectory;
+            HtmlmthServerDirectory = Path.Join(Core.Constants.OutputDirectory, BaseDirectory, IServerOutput.ServerOutputDirectoryName, Host.HostId, Port.ToString() + "_" + Name);
 
             // Make sure a Windows server is running scripting_encoder_server.py
             ScriptEncodingServerHost = scriptEncodingServerHost;
@@ -32,7 +35,8 @@ namespace MyWarez.Plugins.Htmlmth
         public string Name { get; }
         public string ScriptEncodingServerHost { get; }
         public int? ScriptEncodingServerPort { get; }
-        public string HtmlmthServerDirectory => Path.Join(Core.Constants.OutputDirectory, IServerOutput.ServerOutputDirectoryName, Host.HostId, Port.ToString() + "_" + Name);
+        public string HtmlmthServerDirectory { get; }
+        private string BaseDirectory { get; }
 
         public void Add(HtmlmthWebsite website)
         {
@@ -99,26 +103,20 @@ namespace MyWarez.Plugins.Htmlmth
             File.WriteAllText(casePythonScriptPath, CasePythonCodeLeftTemplate + oldcases + newcases + CasePythonCodeRightTemplate);
 
             // Save the install & run scripts to disk
-            var installBashScriptPath = Path.Join(HtmlmthServerDirectory, "install.sh");
-            var runBashScriptPath = Path.Join(HtmlmthServerDirectory, "run.sh");
-            if (!File.Exists(installBashScriptPath))
-                File.WriteAllText(installBashScriptPath, installBashScript);
-            if (!File.Exists(runBashScriptPath))
+            var runScriptShPath = Path.Join(HtmlmthServerDirectory, "run.sh");
+            if (!File.Exists(runScriptShPath))
             {
-                var bashScript = runBashScript;
-                bashScript.Replace("80", Port.ToString());
+                var bashScript = RunScriptSh;
                 if (ScriptEncodingServerHost != null && ScriptEncodingServerPort.HasValue)
                 {
-                    bashScript.Replace("5000", ScriptEncodingServerPort.Value.ToString());
-                    bashScript.Replace("127.0.0.1", ScriptEncodingServerHost.ToString());
                     var scriptingEncoderServerHost = Host.GetHostByHostName(ScriptEncodingServerHost) ?? new Host(ScriptEncodingServerHost, ScriptEncodingServerHost, null);
-                    var scriptingEncoderServerOutput = new RemoteFileServerOutput(scriptingEncoderServerHost, ScriptEncodingServerPort.Value, "ScriptingEncoder_Server");
+                    var scriptingEncoderServerOutput = new RemoteFileServerOutput(scriptingEncoderServerHost, ScriptEncodingServerPort.Value, "ScriptingEncoder_Server", baseDirectory: BaseDirectory);
                     var scriptingEncoderServerScriptPath = Path.Join(HtmlmthLibDirectory, "scripting_encoder_server.py");
                     var scriptingEncoderServerScriptBytes = File.ReadAllBytes(scriptingEncoderServerScriptPath);
                     scriptingEncoderServerOutput.Add("scripting_encoder_server.py", scriptingEncoderServerScriptBytes);
                     scriptingEncoderServerOutput.Generate();
                 }
-                File.WriteAllText(runBashScriptPath, bashScript);
+                File.WriteAllText(runScriptShPath, bashScript);
             }
         }
 
@@ -130,17 +128,14 @@ namespace MyWarez.Plugins.Htmlmth
         }
         private static string PythonStringTemplate = "cases.append(TransformFunction(\"{0}\", None, {1}))";
 
-        private static string installBashScript = @"
-python2 -m pip install --ignore-installed -r htmlmth/requirements.txt
-bash htmlmth/submodules/codetransform/setup.sh
+        private string RunScriptSh
+        {
+            get => $@"
+SCRIPT_DIR=""$(cd ""$( dirname ""${{BASH_SOURCE[0]}}"" )"" &> /dev/null && pwd )""
+(cd ""$SCRIPT_DIR""; export PYTHONPATH=""${{PYTHONPATH}}:.."" ; cd htmlmth/htmlmth ; exec python2 EvasionHTTPServer.py -i 0.0.0.0 -p {Port} -ipv 4 -sesh {(ScriptEncodingServerHost is null ? "127.0.0.1" : ScriptEncodingServerHost)} -sesp {(ScriptEncodingServerPort.HasValue ? ScriptEncodingServerPort.Value : 500)} -b ../../baselines/baseline.yaml -c ../../cases/case.py -tc ../../cases/case.yaml)
 ".Replace("\r\n", "\n");
+        }
 
-        private static string runBashScript = @"
-export PYTHONPATH=""${PYTHONPATH}:..""
-cd htmlmth
-python2 EvasionHTTPServer.py -i 0.0.0.0 -p 80 -ipv 4 -sesh 127.0.0.1 -sesp 5000 -b ../baselines/baseline.yaml -c ../cases/case.py -tc ../cases/case.yaml
-cd ..
-".Replace("\r\n", "\n");
 
         private List<HtmlmthBaseline> Baselines
         {
