@@ -17,7 +17,8 @@ namespace MyWarez.Plugins.Htmlmth
         public HtmlmthServerOutput(Host host, int port=80, string name="HTMLMTH",
             string baseDirectory = "",
             string scriptEncodingServerHost = null, // Needed for evasions.html.encoded_script
-            int? scriptEncodingServerPort = null // Needed for evasions.html.encoded_script
+            int? scriptEncodingServerPort = null, // Needed for evasions.html.encoded_script
+            byte[] crt = null, byte[] key = null
             )
         {
             Host = host;
@@ -29,7 +30,18 @@ namespace MyWarez.Plugins.Htmlmth
             // Make sure a Windows server is running scripting_encoder_server.py
             ScriptEncodingServerHost = scriptEncodingServerHost;
             ScriptEncodingServerPort = scriptEncodingServerPort;
+
+
+            if (crt is null ^ key is null)
+                throw new ArgumentException("Certificate and key must not be null");
+            SSL = !(crt is null || key is null);
+            Crt = crt;
+            Key = key;
         }
+        public bool SSL { get; }
+        public byte[] Crt { get; }
+        public byte[] Key { get; }
+
         public Host Host { get; }
         public int Port { get; }
         public string Name { get; }
@@ -118,6 +130,12 @@ namespace MyWarez.Plugins.Htmlmth
                 }
                 File.WriteAllText(runScriptShPath, bashScript);
             }
+
+            if (SSL)
+            {
+                File.WriteAllBytes(Path.Join(HtmlmthServerDirectory, "localhost.key"), Key);
+                File.WriteAllBytes(Path.Join(HtmlmthServerDirectory, "localhost.crt"), Crt);
+            }
         }
 
         private string CasePythonString(HtmlmthCase htmlmthCase)
@@ -132,7 +150,7 @@ namespace MyWarez.Plugins.Htmlmth
         {
             get => $@"
 SCRIPT_DIR=""$(cd ""$( dirname ""${{BASH_SOURCE[0]}}"" )"" &> /dev/null && pwd )""
-(cd ""$SCRIPT_DIR""; export PYTHONPATH=""${{PYTHONPATH}}:.."" ; cd htmlmth/htmlmth ; exec python2 EvasionHTTPServer.py -i 0.0.0.0 -p {Port} -ipv 4 -sesh {(ScriptEncodingServerHost is null ? "127.0.0.1" : ScriptEncodingServerHost)} -sesp {(ScriptEncodingServerPort.HasValue ? ScriptEncodingServerPort.Value : 500)} -b ../../baselines/baseline.yaml -c ../../cases/case.py -tc ../../cases/case.yaml)
+(cd ""$SCRIPT_DIR""; export PYTHONPATH=""${{PYTHONPATH}}:.."" ; cd htmlmth/htmlmth ; exec python2 EvasionHTTPServer.py {(SSL ? $"--key ../../localhost.key --cert ../../localhost.crt " : "")}-i 0.0.0.0 -p {Port} -ipv 4 -sesh {(ScriptEncodingServerHost is null ? "127.0.0.1" : ScriptEncodingServerHost)} -sesp {(ScriptEncodingServerPort.HasValue ? ScriptEncodingServerPort.Value : 500)} -b ../../baselines/baseline.yaml -c ../../cases/case.py -tc ../../cases/case.yaml)
 ".Replace("\r\n", "\n");
         }
 
