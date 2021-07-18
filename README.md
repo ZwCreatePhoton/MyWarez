@@ -7,7 +7,7 @@
 ***
 ***
 *** To avoid retyping too much info. Do a search and replace for the following:
-*** CreatePhotonW, mywarez, @CreatePhotonW, email, MyWarez, Malware Kill Chain build framework
+*** ZwCreatePhoton, mywarez, @ZwCreatePhoton, email, MyWarez, Malware Kill Chain build framework
 -->
 
 
@@ -33,7 +33,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/CreatePhotonW/mywarez">
+  <a href="https://github.com/ZwCreatePhoton/mywarez">
 <!--    <img src="images/logo.png" alt="Logo" width="80" height="80"> -->
   </a>
 
@@ -42,16 +42,16 @@
   <p align="center">
     Malware Kill Chain build framework
     <br />
-<!--    <a href="https://github.com/CreatePhotonW/mywarez"><strong>Explore the docs »</strong></a> -->
+<!--    <a href="https://github.com/ZwCreatePhoton/mywarez"><strong>Explore the docs »</strong></a> -->
     <br />
     <br />
     <!--
-    <a href="https://github.com/CreatePhotonW/mywarez">View Demo</a>
+    <a href="https://github.com/ZwCreatePhoton/mywarez">View Demo</a>
     ·
     -->
-    <a href="https://github.com/CreatePhotonW/mywarez/issues">Report Bug</a>
+    <a href="https://github.com/ZwCreatePhoton/mywarez/issues">Report Bug</a>
     ·
-    <a href="https://github.com/CreatePhotonW/mywarez/issues">Request Feature</a>
+    <a href="https://github.com/ZwCreatePhoton/mywarez/issues">Request Feature</a>
   </p>
 </p>
 
@@ -143,7 +143,7 @@ To get a local copy up and running follow these simple steps.
    ```
 1. Clone the repo recursively
    ```sh
-   git clone https://github.com/CreatePhotonW/MyWarez.git --recursive
+   git clone https://github.com/ZwCreatePhoton/MyWarez.git --recursive
    ```
 2. Open MyWarez.sln in Visual Studio
 3. Clean Solution, Build Solution, Run the Examples project.
@@ -164,7 +164,7 @@ _Read through the commented examples in the following order:_
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/CreatePhotonW/mywarez/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/ZwCreatePhoton/mywarez/issues) for a list of proposed features (and known issues).
 
 
 
@@ -191,23 +191,23 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-CreatePhotonW - [@CreatePhotonW](https://twitter.com/CreatePhotonW)
+ZwCreatePhoton - [@ZwCreatePhoton](https://twitter.com/ZwCreatePhoton)
 
-Project Link: [https://github.com/CreatePhotonW/mywarez](https://github.com/CreatePhotonW/mywarez)
+Project Link: [https://github.com/ZwCreatePhoton/mywarez](https://github.com/ZwCreatePhoton/mywarez)
 
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/CreatePhotonW/repo.svg?style=for-the-badge
-[contributors-url]: https://github.com/CreatePhotonW/repo/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/CreatePhotonW/repo.svg?style=for-the-badge
-[forks-url]: https://github.com/CreatePhotonW/repo/network/members
-[stars-shield]: https://img.shields.io/github/stars/CreatePhotonW/repo.svg?style=for-the-badge
-[stars-url]: https://github.com/CreatePhotonW/repo/stargazers
-[issues-shield]: https://img.shields.io/github/issues/CreatePhotonW/repo.svg?style=for-the-badge
-[issues-url]: https://github.com/CreatePhotonW/repo/issues
-[license-shield]: https://img.shields.io/github/license/CreatePhotonW/repo.svg?style=for-the-badge
-[license-url]: https://github.com/CreatePhotonW/repo/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/ZwCreatePhoton/repo.svg?style=for-the-badge
+[contributors-url]: https://github.com/ZwCreatePhoton/repo/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/ZwCreatePhoton/repo.svg?style=for-the-badge
+[forks-url]: https://github.com/ZwCreatePhoton/repo/network/members
+[stars-shield]: https://img.shields.io/github/stars/ZwCreatePhoton/repo.svg?style=for-the-badge
+[stars-url]: https://github.com/ZwCreatePhoton/repo/stargazers
+[issues-shield]: https://img.shields.io/github/issues/ZwCreatePhoton/repo.svg?style=for-the-badge
+[issues-url]: https://github.com/ZwCreatePhoton/repo/issues
+[license-shield]: https://img.shields.io/github/license/ZwCreatePhoton/repo.svg?style=for-the-badge
+[license-url]: https://github.com/ZwCreatePhoton/repo/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/CreatePhotonW
+[linkedin-url]: https://linkedin.com/in/ZwCreatePhoton
