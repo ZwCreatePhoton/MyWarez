@@ -12,18 +12,28 @@ namespace MyWarez.Core
             this.Path = path;
         }
 
-        public string Data { get; }
-        public string Path { get; }
+        public string Data { get; set; }
+        public string Path { get; set; }
 
-        public static IEnumerable<WebsiteResource> SourceDirectoryToWebsiteResources(string sourceDirectory, IEnumerable<string> excludeFiles = null, IEnumerable<WebsiteResource> additionalResources = null)
+        public static IEnumerable<WebsiteResource> SourceDirectoryToWebsiteResources(string sourceDirectory, IEnumerable<string> excludeFiles = null, IEnumerable<WebsiteResource> additionalResources = null, string rootPage = "index.html")
         {
             excludeFiles ??= new List<string>();
             additionalResources ??= new List<WebsiteResource>();
             List<WebsiteResource> files = new List<WebsiteResource>();
-            files.AddRange(Directory.GetFiles(sourceDirectory, "*", SearchOption.AllDirectories).ToList().Where(file => !excludeFiles.Contains(System.IO.Path.GetRelativePath(sourceDirectory, file))).Select((file) => new WebsiteResource(File.ReadAllText(file), System.IO.Path.GetRelativePath(sourceDirectory, file))));
+            files.AddRange(
+                Directory.GetFiles(sourceDirectory, "*", SearchOption.AllDirectories).ToList()
+                .Where(file => !excludeFiles.Contains(System.IO.Path.GetRelativePath(sourceDirectory, file)))
+                .Select((file) => new WebsiteResource(File.ReadAllText(file), "/"+(System.IO.Path.GetRelativePath(sourceDirectory, file) == rootPage ? "" : System.IO.Path.GetRelativePath(sourceDirectory, file)))));
             foreach (var source in additionalResources)
                 files.Add(source);
             return files;
+        }
+
+        public static IEnumerable<WebsiteResource> FindAndReplace(IEnumerable<WebsiteResource> sourceFiles, string oldString, string newString)
+        {
+            foreach (var sourceFile in sourceFiles)
+                sourceFile.Data = sourceFile.Data.Replace(oldString, newString);
+            return sourceFiles;
         }
     }
 
