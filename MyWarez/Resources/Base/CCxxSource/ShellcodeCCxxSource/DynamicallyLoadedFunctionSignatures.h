@@ -213,3 +213,35 @@ typedef int(WSAAPI* Funcconnect) (
 	);
 
 #pragma endregion
+
+
+// Winspool.drv
+
+#pragma region Winspool.drv
+
+// Winspool.drv!EnumPrinterDriversA
+typedef BOOL(WINAPI* FuncEnumPrinterDriversA) (
+	_In_opt_    LPSTR        pName,
+	_In_opt_    LPSTR        pEnvironment,
+	DWORD          Level,
+	_Out_writes_bytes_opt_(cbBuf)
+	LPBYTE        pDriverInfo,
+	DWORD          cbBuf,
+	_Out_       LPDWORD        pcbNeeded,
+	_Out_       LPDWORD        pcReturned
+);
+
+// Winspool.drv!AddPrinterDriverExA
+typedef BOOL(WINAPI* FuncAddPrinterDriverExA) (
+	_In_opt_         LPSTR  pName,
+	_In_range_(2, 8) DWORD    Level,
+	_When_(Level == 2, _In_reads_bytes_(sizeof(DRIVER_INFO_2)))
+	_When_(Level == 3, _In_reads_bytes_(sizeof(DRIVER_INFO_3)))
+	_When_(Level == 4, _In_reads_bytes_(sizeof(DRIVER_INFO_4)))
+	_When_(Level == 6, _In_reads_bytes_(sizeof(DRIVER_INFO_6)))
+	_When_(Level == 8, _In_reads_bytes_(sizeof(DRIVER_INFO_8)))
+	PBYTE    lpbDriverInfo,
+	_In_             DWORD    dwFileCopyFlags
+);
+
+#pragma endregion
