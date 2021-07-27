@@ -1,21 +1,38 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using System.Text;
 
 namespace MyWarez.Core
 {
     public class WebsiteResource
     {
         public WebsiteResource(string data, string path)
+            : this(Encoding.ASCII.GetBytes(data), path)
+        { }
+
+        public WebsiteResource(byte[] bytes, string path)
         {
-            this.Data = data;
+            this.Bytes = bytes;
             this.Path = path;
         }
 
-        public string Data { get; set; }
+        public byte[] Bytes { get; set; }
+        public string Data
+        {
+            get
+            {
+                return Encoding.ASCII.GetString(Bytes);
+            }
+
+            set
+            {
+                Bytes = Encoding.ASCII.GetBytes(value);
+            }
+        }
         public string Path { get; set; }
 
-        public static IEnumerable<WebsiteResource> SourceDirectoryToWebsiteResources(string sourceDirectory, IEnumerable<string> excludeFiles = null, IEnumerable<WebsiteResource> additionalResources = null, string rootPage = "index.html")
+        public static ICollection<WebsiteResource> SourceDirectoryToWebsiteResources(string sourceDirectory, IEnumerable<string> excludeFiles = null, IEnumerable<WebsiteResource> additionalResources = null, string rootPage = "index.html")
         {
             excludeFiles ??= new List<string>();
             additionalResources ??= new List<WebsiteResource>();
@@ -29,10 +46,16 @@ namespace MyWarez.Core
             return files;
         }
 
-        public static IEnumerable<WebsiteResource> FindAndReplace(IEnumerable<WebsiteResource> sourceFiles, string oldString, string newString)
+        public static ICollection<WebsiteResource> FindAndReplace(ICollection<WebsiteResource> sourceFiles, string oldString, string newString)
         {
             foreach (var sourceFile in sourceFiles)
-                sourceFile.Data = sourceFile.Data.Replace(oldString, newString);
+            {
+                try
+                {
+                    sourceFile.Data = sourceFile.Data.Replace(oldString, newString);
+                }
+                catch { }
+            }
             return sourceFiles;
         }
     }

@@ -77,7 +77,7 @@ namespace MyWarez.Plugins.Htmlmth
             var myBaselineDir = Path.Join(mainBaselineDir, randID);
             Directory.CreateDirectory(myBaselineDir);
             foreach (var baseline in Baselines)
-                File.WriteAllText(Path.Join(myBaselineDir, baseline.Filepath), baseline.Data);
+                File.WriteAllBytes(Path.Join(myBaselineDir, baseline.Filepath), baseline.Bytes);
 
             // Save the baseline yaml to disk
             var myBaselineYamlPath = Path.Join(myBaselineDir, "baseline.yaml");

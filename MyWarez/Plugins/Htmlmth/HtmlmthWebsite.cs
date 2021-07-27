@@ -9,17 +9,17 @@ namespace MyWarez.Plugins.Htmlmth
 {
     public class HtmlmthBaseline
     {
-        public HtmlmthBaseline(string host, string path, string filepath, string data)
+        public HtmlmthBaseline(string host, string path, string filepath, byte[] bytes)
         {
             Host = host;
             Path = path;
             Filepath = filepath;
-            Data = data;
+            Bytes = bytes;
         }
         public string Host { get; set; }
         public string Path { get; set; }
         public string Filepath { get; set; }
-        public string Data { get; set; }
+        public byte[] Bytes { get; set; }
     }
 
     public class HtmlmthCase
@@ -57,7 +57,7 @@ namespace MyWarez.Plugins.Htmlmth
         {
             string ext = Path.GetExtension(resource.Path);
             if (ext == "") ext = ".html";
-            HtmlmthBaseline baseline = new HtmlmthBaseline(host, resource.Path, Utils.RandomString(10) + ext, resource.Data);
+            HtmlmthBaseline baseline = new HtmlmthBaseline(host, resource.Path, Utils.RandomString(10) + ext, resource.Bytes);
             return baseline;
         }
 
