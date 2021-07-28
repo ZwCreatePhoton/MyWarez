@@ -58,6 +58,36 @@ namespace MyWarez.Core
             }
             return sourceFiles;
         }
+
+        public static ICollection<WebsiteResource> Rebase(ICollection<WebsiteResource> resources, Dictionary<string, string> fileMap=null, string newRoot="/")
+        {
+            foreach (var resource in resources)
+            {
+                if (!(fileMap is null))
+                {
+                    foreach (var item in fileMap)
+                    {
+                        var oldFilename = item.Key;
+                        var newFilename = item.Value;
+                        if (resource.Path == oldFilename)
+                        {
+                            resource.Path = newFilename;
+                            foreach (var item2 in fileMap)
+                            {
+                                var oldFilename2 = item2.Key;
+                                var newFilename2 = item2.Value;
+                                if (oldFilename2 != "/" && newFilename2 != "/")
+                                {
+                                    resource.Data = resource.Data.Replace(oldFilename2.StartsWith('/') ? oldFilename2[1..] : oldFilename2, newFilename2.StartsWith('/') ? newFilename2[1..] : newFilename2);
+                                }
+                            }
+                        }
+                    }
+                }
+                resource.Path = (newRoot.EndsWith("/") ? newRoot[0..^1]: newRoot) + resource.Path;
+            }
+            return resources;
+        }
     }
 
     public class Website : IPayload
