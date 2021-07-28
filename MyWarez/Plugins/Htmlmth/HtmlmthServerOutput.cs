@@ -14,29 +14,26 @@ namespace MyWarez.Plugins.Htmlmth
     {
         private static readonly string HtmlmthLibDirectory = Path.Join(Core.Constants.PluginsResourceDirectory, "Htmlmth", "htmlmth");
 
-        public HtmlmthServerOutput(Host host, int port=80, string name="HTMLMTH",
+        public HtmlmthServerOutput(Host host, int? port=null, string name="HTMLMTH",
             string baseDirectory = "",
             string scriptEncodingServerHost = null, // Needed for evasions.html.encoded_script
             int? scriptEncodingServerPort = null, // Needed for evasions.html.encoded_script
             byte[] crt = null, byte[] key = null
             )
         {
-            Host = host;
-            Port = port;
-            Name = name;
-            BaseDirectory = baseDirectory;
-            HtmlmthServerDirectory = Path.Join(Core.Constants.OutputDirectory, BaseDirectory, IServerOutput.ServerOutputDirectoryName, Host.HostId, Port.ToString() + "_" + Name);
-
-            // Make sure a Windows server is running scripting_encoder_server.py
-            ScriptEncodingServerHost = scriptEncodingServerHost;
-            ScriptEncodingServerPort = scriptEncodingServerPort;
-
-
             if (crt is null ^ key is null)
                 throw new ArgumentException("Certificate and key must not be null");
             SSL = !(crt is null || key is null);
             Crt = crt;
             Key = key;
+            Host = host;
+            Port = port.HasValue ? port.Value : (SSL ? 443 : 80);
+            Name = name;
+            BaseDirectory = baseDirectory;
+            HtmlmthServerDirectory = Path.Join(Core.Constants.OutputDirectory, BaseDirectory, IServerOutput.ServerOutputDirectoryName, Host.HostId, Port.ToString() + "_" + Name);
+            // Make sure a Windows server is running scripting_encoder_server.py
+            ScriptEncodingServerHost = scriptEncodingServerHost;
+            ScriptEncodingServerPort = scriptEncodingServerPort;
         }
         public bool SSL { get; }
         public byte[] Crt { get; }
