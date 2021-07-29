@@ -235,6 +235,7 @@ from collections import OrderedDict
 from htmlmth.utils import TransformFunction
 import htmlmth.evasions.html
 import htmlmth.evasions.http
+import htmlmth.evasions.javascript
 
 
 # returns an OrderedDict of cases with (casenames, case) as items
